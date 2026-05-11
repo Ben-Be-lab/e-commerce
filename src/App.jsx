@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-// Layouts
-import Layout from './components/Layout'; // Customer Navbar/Footer
+import Layout from './Components/Layout'; // Customer Navbar/Footer
 import AdminLayout from './Components/AdminLayout';
 
 // Client Pages
