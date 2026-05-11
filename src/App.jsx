@@ -2,18 +2,16 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import Layout from './Components/Layout'; // Customer Navbar/Footer
 import AdminLayout from './Components/AdminLayout';
-
-// Client Pages
-import Home from './Pages/Home';
+import Home from './Pages/Home'
 import Store from './Pages/Store';
 import Cart from './Pages/Cart';
 import ProductDetails from './pages/ProductDetails';
-import Auth from './pages/Auth'; // Public Customer Auth (Login/Register)
+import Auth from './Pages/Auth'; // Public Customer Auth (Login/Register)
 
 // Admin Pages
-import AdminAuth from './pages/Admin/AdminAuth'; // Secret Staff Auth
+import AdminAuth from './Pages/Admin/AdminAuth'; // Secret Staff Auth
 import AdminDashboard from './pages/Admin/AdminDashboard';
-import Inventory from './pages/Admin/Inventory';
+import Inventory from './Pages/Admin/Inventory';
 
 function App() {
   return (
@@ -23,7 +21,7 @@ function App() {
         {/* 1. CUSTOMER ROUTES 
             Everything here shows the standard website Navbar and Footer */}
         <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
+          <Route path="Home" element={<Home />} />
           <Route path="store" element={<Store />} />
           <Route path="cart" element={<Cart />} />
           <Route path="product/:id" element={<ProductDetails />} />
