@@ -4,9 +4,9 @@ import Layout from './Components/Layout'; // Customer Navbar/Footer
 import AdminLayout from './Components/AdminLayout';
 
 // Client Pages
-import Home from './pages/Home';
-import Store from './pages/Store';
-import Cart from './pages/Cart';
+import Home from './Pages/Home';
+import Store from './Pages/Store';
+import Cart from './Pages/Cart';
 import ProductDetails from './pages/ProductDetails';
 import Auth from './pages/Auth'; // Public Customer Auth (Login/Register)
 
