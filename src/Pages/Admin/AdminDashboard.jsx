@@ -1,4 +1,3 @@
-import React from 'react';
 import { ChartBarIcon, CubeIcon, UsersIcon } from '@heroicons/react/24/outline';
 
 const AdminDashboard = () => {

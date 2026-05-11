@@ -1,44 +1,46 @@
-import React, { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { ShoppingBagIcon } from '@heroicons/react/24/outline';
 
 const Store = () => {
   const [activeCategory, setActiveCategory] = useState('All');
 
-  // A curated list of specific, unique product IDs (Shoes, Hoodies, Jeans, Women's Wear)
-  const productData = [
-    // SHOES
-    { id: 1, category: 'Shoes', name: 'Nike Air Max', price: 120000, img: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600' },
-    { id: 2, category: 'Shoes', name: 'Desert Boots', price: 45000, img: 'https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=600' },
-    { id: 3, category: 'Shoes', name: 'Classic Vans', price: 35000, img: 'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=600' },
-    { id: 4, category: 'Shoes', name: 'All-Star High', price: 28000, img: 'https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=600' },
-    
-    // HOODIES
-    { id: 5, category: 'Hoodies', name: 'Oversized Sand', price: 25000, img: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600' },
-    { id: 6, category: 'Hoodies', name: 'Black Tech-Fleece', price: 32000, img: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=600' },
-    { id: 7, category: 'Hoodies', name: 'Emerald Pullover', price: 25000, img: 'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=600' },
-    
-    // JEANS
-    { id: 8, category: 'Jeans', name: 'Straight Blue Denim', price: 18000, img: 'https://images.unsplash.com/photo-1542272604-787c3835535d?w=600' },
-    { id: 9, category: 'Jeans', name: 'Black Slim Fit', price: 20000, img: 'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=600' },
-    
-    // WOMEN WEAR
-    { id: 10, category: 'Women Wear', name: 'Satin Blouse', price: 15000, img: 'https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=600' },
-    { id: 11, category: 'Women Wear', name: 'Summer Handbag', price: 40000, img: 'https://images.unsplash.com/photo-1584917033904-4911df440ed9?w=600' },
-    { id: 12, category: 'Women Wear', name: 'Minimalist Watch', price: 85000, img: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=600' },
-  ];
-
   // This function duplicates the curated items to reach 48 products 
   // but changes their colors/names slightly to keep the variety high.
-  const allProducts = Array.from({ length: 48 }).map((_, index) => {
-    const original = productData[index % productData.length];
-    return {
-      ...original,
-      id: index + 1,
-      name: `${original.name} v${Math.floor(index / productData.length) + 1}`,
-      // Randomizing prices slightly for realism
-      price: original.price + (Math.floor(Math.random() * 5000) - 2500)
-    };
-  });
+  const allProducts = useMemo(() => {
+    const productData = [
+      // SHOES
+      { id: 1, category: 'Shoes', name: 'Nike Air Max', price: 120000, img: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600' },
+      { id: 2, category: 'Shoes', name: 'Desert Boots', price: 45000, img: 'https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=600' },
+      { id: 3, category: 'Shoes', name: 'Classic Vans', price: 35000, img: 'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=600' },
+      { id: 4, category: 'Shoes', name: 'All-Star High', price: 28000, img: 'https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=600' },
+      
+      // HOODIES
+      { id: 5, category: 'Hoodies', name: 'Oversized Sand', price: 25000, img: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600' },
+      { id: 6, category: 'Hoodies', name: 'Black Tech-Fleece', price: 32000, img: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=600' },
+      { id: 7, category: 'Hoodies', name: 'Emerald Pullover', price: 25000, img: 'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=600' },
+      
+      // JEANS
+      { id: 8, category: 'Jeans', name: 'Straight Blue Denim', price: 18000, img: 'https://images.unsplash.com/photo-1542272604-787c3835535d?w=600' },
+      { id: 9, category: 'Jeans', name: 'Black Slim Fit', price: 20000, img: 'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=600' },
+      
+      // WOMEN WEAR
+      { id: 10, category: 'Women Wear', name: 'Satin Blouse', price: 15000, img: 'https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=600' },
+      { id: 11, category: 'Women Wear', name: 'Summer Handbag', price: 40000, img: 'https://images.unsplash.com/photo-1584917033904-4911df440ed9?w=600' },
+      { id: 12, category: 'Women Wear', name: 'Minimalist Watch', price: 85000, img: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=600' },
+    ];
+    
+    return Array.from({ length: 48 }).map((_, index) => {
+      const original = productData[index % productData.length];
+      // Use deterministic price variation based on index instead of Math.random()
+      const priceVariation = ((index * 1234) % 5000) - 2500;
+      return {
+        ...original,
+        id: index + 1,
+        name: `${original.name} v${Math.floor(index / productData.length) + 1}`,
+        price: original.price + priceVariation
+      };
+    });
+  }, []);
 
   const filteredProducts = activeCategory === 'All' 
     ? allProducts 

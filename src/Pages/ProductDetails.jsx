@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 // Using the specific paths for v2 to avoid red lines in VS Code
 import { ShoppingBagIcon, ChevronLeftIcon } from '@heroicons/react/24/outline';
 
 const ProductDetails = () => {
-  // 1. Grabbing the ID from the URL (fixes dynamic routing warnings)
-  const { id } = useParams();
   
   // 2. Local state for size selection
   const [selectedSize, setSelectedSize] = useState('M');

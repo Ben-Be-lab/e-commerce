@@ -1,10 +1,8 @@
-import React from 'react';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { 
   ChartBarIcon, 
   CubeIcon, 
-  ArrowLeftOnRectangleIcon, 
-  UserCircleIcon,
+  ArrowLeftOnRectangleIcon,
   ShoppingBagIcon
 } from '@heroicons/react/24/outline';
 

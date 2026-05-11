@@ -5,12 +5,12 @@ import AdminLayout from './Components/AdminLayout';
 import Home from './Pages/Home'
 import Store from './Pages/Store';
 import Cart from './Pages/Cart';
-import ProductDetails from './pages/ProductDetails';
+import ProductDetails from './Pages/ProductDetails';
 import Auth from './Pages/Auth'; // Public Customer Auth (Login/Register)
 
 // Admin Pages
 import AdminAuth from './Pages/Admin/AdminAuth'; // Secret Staff Auth
-import AdminDashboard from './pages/Admin/AdminDashboard';
+import AdminDashboard from './Pages/Admin/AdminDashboard';
 import Inventory from './Pages/Admin/Inventory';
 
 function App() {
@@ -21,7 +21,8 @@ function App() {
         {/* 1. CUSTOMER ROUTES 
             Everything here shows the standard website Navbar and Footer */}
         <Route path="/" element={<Layout />}>
-          <Route path="Home" element={<Home />} />
+          <Route index element={<Home />} />
+          <Route path="home" element={<Home />} />
           <Route path="store" element={<Store />} />
           <Route path="cart" element={<Cart />} />
           <Route path="product/:id" element={<ProductDetails />} />

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { BriefcaseIcon, KeyIcon } from '@heroicons/react/24/outline';
+import { useState } from 'react';
+import { BriefcaseIcon } from '@heroicons/react/24/outline';
 import { useNavigate } from 'react-router-dom';
 
 const AdminAuth = () => {

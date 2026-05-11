@@ -1,8 +1,6 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
-import { ShoppingCartIcon } from '@heroicons/react/24/outline'; 
 
-const Navbar = ({ cartCount = 0 }) => {
+const Navbar = () => {
   return (
     <nav className="sticky top-0 z-50 bg-white border-b border-black/5 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

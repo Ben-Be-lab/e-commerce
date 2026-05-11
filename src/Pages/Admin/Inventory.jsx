@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { PlusIcon, PencilSquareIcon, TrashIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 
 const Inventory = () => {
   // Sample state for your shoes
-  const [products, setProducts] = useState([
+  const [products] = useState([
     { id: 1, name: 'Air Jordan 1 Retro', price: '120,000', stock: 5, category: 'Sneakers' },
     { id: 2, name: 'Nike Dunk Low', price: '95,000', stock: 0, category: 'Sneakers' },
     { id: 3, name: 'Yeezy Boost 350', price: '250,000', stock: 2, category: 'Limited' },

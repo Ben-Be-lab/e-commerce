@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { UserIcon, LockClosedIcon, EnvelopeIcon, ArrowRightIcon, ShieldCheckIcon } from '@heroicons/react/24/outline';
+import { useState } from 'react';
+import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { useNavigate } from 'react-router-dom';
 
 const Auth = () => {
