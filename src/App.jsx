@@ -34,7 +34,7 @@ function App() {
         {/* 2. SECRET ADMIN AUTH GATE
             This is the link you only give to your staff. 
             It doesn't use the store layout or the admin sidebar. */}
-        <Route path="/admin-gateway-kigali-2026" element={<AdminAuth />} />
+        <Route path="/admin-login" element={<AdminAuth />} />
 
         {/* 3. PROTECTED ADMIN DASHBOARD
             Wrapped in the AdminLayout which provides the Sidebar */}
