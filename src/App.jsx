@@ -31,8 +31,8 @@ function App() {
           <Route index element={<Home />} />
           <Route path="home" element={<Home />} />
           <Route path="store" element={<Store />} />
-          <Route path="LOGIN" element={<Login />} />
-          <Route path="REGISTER" element={<Register />} />
+          <Route path="Login" element={<Login />} />
+          <Route path="Register" element={<Register />} />
           <Route path="forgot-password" element={<ForgotPassword />} />
           <Route path="cart" element={<Cart />} />
           <Route path="product/:id" element={<ProductDetails />} />

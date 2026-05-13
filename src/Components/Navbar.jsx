@@ -17,8 +17,8 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-8 text-black font-semibold uppercase text-[11px] tracking-widest">
             <Link to="/" className="hover:text-emerald-500 transition-colors">Home</Link>
             <Link to="/store" className="hover:text-emerald-500 transition-colors">Store</Link>
-            <Link to="/about-us" className="hover:text-emerald-500 transition-colors">About</Link>
-            <Link to="/contact-us" className="hover:text-emerald-500 transition-colors">Contact</Link>
+            <Link to="/about-us" className="hover:text-emerald-500 transition-colors">About Us</Link>
+            <Link to="/contact-us" className="hover:text-emerald-500 transition-colors">Contact Us</Link>
           </div>
 
           {/* AUTH ACTIONS */}
