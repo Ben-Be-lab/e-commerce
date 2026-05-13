@@ -1,19 +1,68 @@
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import ProductCard from '../Components/ProductCard';
 
 const Home = () => {
-  const featured = [
-    { id: 1, name: "Premium Hoodie", price: 35000, category: "Apparel", img: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600' },
-    { id: 2, name: "Urban Runners", price: 65000, category: "Footwear", img: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600' },
-    { id: 3, name: "Tech Joggers", price: 28000, category: "Apparel", img: 'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=600' },
-    { id: 4, name: "Satin Blouse", price: 18000, category: "Women Wear", img: 'https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=600' },
+
+  const footwearImages = [
+    '/Images/tmberland.avif',
+    '/Images/PHANTOM+6+LOW+ELITE+FG+EH.avif',
+    '/Images/AIR+JORDAN+5+RETRO+OG.avif'
   ];
+
+  const womenImages = [
+    '/Images/womentimber.avif',
+    '/Images/WMNS+AIR+JORDAN+11+RETRO+LOW.avif',
+    '/Images/SLIDE.avif'
+  ];
+
+  const featured = [
+    { id: 1, name: "AIR JORDAN 5 RETRO OG", price: 35000, category: "Apparel", img: '/Images/AIR+JORDAN+5+RETRO+OG.avif' },
+    { id: 2, name: "FOOTBALL SHOES", price: 65000, category: "Footwear", img: '/Images/PHANTOM+6+LOW+ELITE+FG+EH.avif' },
+    { id: 3, name: "SLIDE", price: 28000, category: "Apparel", img: '/Images/SLIDE.avif' },
+    { id: 4, name: "AIR JORDAN 11", price: 18000, category: "Women Wear", img: '/Images/WMNS+AIR+JORDAN+11+RETRO+LOW.avif' },
+  ];
+
+
+  const footwearRef = useRef(null);
+  const womenRef = useRef(null);
+  const [footwearIndex, setFootwearIndex] = useState(0);
+  const [womenIndex, setWomenIndex] = useState(0);
+
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setFootwearIndex((prev) => (prev + 1) % footwearImages.length);
+      setWomenIndex((prev) => (prev + 1) % womenImages.length);
+    }, 3500);
+
+    return () => clearInterval(interval);
+  }, [footwearImages.length, womenImages.length]);
+
+
+  useEffect(() => {
+    if (footwearRef.current) {
+      footwearRef.current.scrollTo({
+        left: footwearIndex * footwearRef.current.offsetWidth,
+        behavior: 'smooth',
+      });
+    }
+  }, [footwearIndex]);
+
+  useEffect(() => {
+    if (womenRef.current) {
+      womenRef.current.scrollTo({
+        left: womenIndex * womenRef.current.offsetWidth,
+        behavior: 'smooth',
+      });
+    }
+  }, [womenIndex]);
 
   return (
     <div className="bg-white">
-      
-      {/* 1. TYPOGRAPHY HERO - No Image, very professional */}
-      <section className="py-32 px-4 border-b border-black">
+
+
+      <section className="py-32 px-4 bg-gray-50 rounded-[3rem] mt-12">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-[12vw] leading-[0.8] font-black uppercase tracking-tighter italic">
             BEN'S<br />
@@ -30,30 +79,50 @@ const Home = () => {
         </div>
       </section>
 
-      {/* 2. SIMPLE CATEGORY SPLIT - Only 2 Images Total */}
+      
       <section className="max-w-7xl mx-auto px-4 py-24">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          {/* Men/Footwear Section */}
-          <div className="group cursor-pointer">
-            <div className="aspect-[16/9] bg-gray-100 rounded-[2rem] overflow-hidden mb-6">
-              <img src="https://images.unsplash.com/photo-1511499767390-90342f567217?w=1000" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" alt="New Drops" />
+
+          {/* FOOTWEAR SLIDER */}
+          <div className="group">
+            <div className="relative overflow-hidden rounded-[2rem]">
+              <div
+                ref={footwearRef}
+                className="flex overflow-x-hidden snap-x snap-mandatory aspect-[16/9]"
+              >
+                {footwearImages.map((src, i) => (
+                  <div key={i} className="min-w-full h-full snap-center">
+                    <img src={src} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" alt="Footwear" />
+                  </div>
+                ))}
+              </div>
             </div>
-            <h3 className="text-3xl font-black uppercase tracking-tighter">Footwear & Basics</h3>
+            <h3 className="text-3xl font-black uppercase tracking-tighter mt-6">Footwear & Basics</h3>
             <Link to="/store" className="text-emerald-600 font-bold uppercase text-xs tracking-widest mt-2 block">Shop Collection →</Link>
           </div>
 
-          {/* Women/Apparel Section */}
-          <div className="group cursor-pointer">
-            <div className="aspect-[16/9] bg-gray-100 rounded-[2rem] overflow-hidden mb-6">
-              <img src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=1000" className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" alt="Women Wear" />
+          
+          <div className="group">
+            <div className="relative overflow-hidden rounded-[2rem]">
+              <div
+                ref={womenRef}
+                className="flex overflow-x-hidden snap-x snap-mandatory aspect-[16/9]"
+              >
+                {womenImages.map((src, i) => (
+                  <div key={i} className="min-w-full h-full snap-center">
+                    <img src={src} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" alt="Women" />
+                  </div>
+                ))}
+              </div>
             </div>
-            <h3 className="text-3xl font-black uppercase tracking-tighter">Women's Selection</h3>
+            <h3 className="text-3xl font-black uppercase tracking-tighter mt-6">Women's Selection</h3>
             <Link to="/store" className="text-emerald-600 font-bold uppercase text-xs tracking-widest mt-2 block">Shop Collection →</Link>
           </div>
+
         </div>
       </section>
 
-      {/* 3. CLEAN PRODUCT GRID */}
+      
       <div className="max-w-7xl mx-auto px-4 py-24 bg-gray-50 rounded-[3rem] mb-24">
         <div className="flex flex-col mb-16">
           <h2 className="text-4xl font-black text-black uppercase tracking-tighter">New Arrivals</h2>
@@ -62,33 +131,33 @@ const Home = () => {
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {featured.map(p => (
-            <div key={p.id} className="bg-white p-4 rounded-[2rem] shadow-sm">
-               <ProductCard product={p} />
+            <div key={p.id} className="bg-white p-4 rounded-[2rem] shadow-sm hover:shadow-xl transition-shadow">
+              <ProductCard product={p} />
             </div>
           ))}
         </div>
       </div>
 
-      {/* 4. TEXT-BASED TRUST SECTION - Zero Photos */}
+      
       <section className="bg-black py-20 text-center">
         <div className="max-w-7xl mx-auto px-4">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-                <div>
-                    <h4 className="text-emerald-500 font-black text-3xl uppercase italic tracking-tighter">Fast Delivery</h4>
-                    <p className="text-gray-400 mt-2 text-sm">Under 24H in Kigali City.</p>
-                </div>
-                <div>
-                    <h4 className="text-orange-500 font-black text-3xl uppercase italic tracking-tighter">Best Quality</h4>
-                    <p className="text-gray-400 mt-2 text-sm">Hand-picked premium fabrics.</p>
-                </div>
-                <div>
-                    <h4 className="text-white font-black text-3xl uppercase italic tracking-tighter">Easy Returns</h4>
-                    <p className="text-gray-400 mt-2 text-sm">Not happy? We swap it instantly.</p>
-                </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div>
+              <h4 className="text-emerald-500 font-black text-3xl uppercase italic tracking-tighter">Fast Delivery</h4>
+              <p className="text-gray-400 mt-2 text-sm">Under 24H in Kigali City.</p>
             </div>
+            <div>
+              <h4 className="text-orange-500 font-black text-3xl uppercase italic tracking-tighter">Best Quality</h4>
+              <p className="text-gray-400 mt-2 text-sm">Hand-picked premium fabrics.</p>
+            </div>
+            <div>
+              <h4 className="text-white font-black text-3xl uppercase italic tracking-tighter">Easy Returns</h4>
+              <p className="text-gray-400 mt-2 text-sm">Not happy? We swap it instantly.</p>
+            </div>
+          </div>
         </div>
       </section>
-      
+
     </div>
   );
 };

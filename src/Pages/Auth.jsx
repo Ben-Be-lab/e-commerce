@@ -1,72 +1,49 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { EnvelopeIcon, LockClosedIcon, UserIcon, ShieldCheckIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 const Auth = () => {
-  const navigate = useNavigate();
-  const [isLogin, setIsLogin] = useState(true);
-  const [formData, setFormData] = useState({ name: '', email: '', password: '', confirmPassword: '' });
+  const [searchParams] = useSearchParams();
+  const mode = searchParams.get('mode'); // This reads the ?mode= part from the URL
+  
+  // Set the form based on the URL. If it's 'register', isLogin becomes false.
+  const [isLogin, setIsLogin] = useState(mode !== 'register');
 
-  const passwordsMatch = isLogin || (formData.password === formData.confirmPassword && formData.confirmPassword !== '');
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!passwordsMatch) return;
-    navigate('/store'); 
-  };
+  // If the user is already on the page and clicks a different button in the navbar
+  useEffect(() => {
+    setIsLogin(mode !== 'register');
+  }, [mode]);
 
   return (
-    <div className="min-h-[80vh] flex items-center justify-center p-6 bg-white">
-      <div className="max-w-md w-full p-8 rounded-[2.5rem] border-2 border-black shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] bg-white">
-        <h2 className="text-4xl font-black italic uppercase tracking-tighter mb-8 leading-none">
-          {isLogin ? 'Welcome Back' : 'Create Account'}
-        </h2>
+    <div className="py-20 flex justify-center bg-gray-50">
+      <div className="bg-white p-12 rounded-[3rem] shadow-xl w-full max-w-md">
+        
+        {/* Toggle between Login and Register inside the page */}
+        <div className="flex gap-6 mb-8 border-b pb-4">
+          <button 
+            onClick={() => setIsLogin(true)}
+            className={`font-black uppercase text-xs tracking-widest ${isLogin ? 'text-emerald-600' : 'text-gray-400'}`}
+          >
+            Login
+          </button>
+          <button 
+            onClick={() => setIsLogin(false)}
+            className={`font-black uppercase text-xs tracking-widest ${!isLogin ? 'text-emerald-600' : 'text-gray-400'}`}
+          >
+            Register
+          </button>
+        </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form className="space-y-4">
           {!isLogin && (
-            <div className="space-y-1">
-              <label className="text-[10px] font-black uppercase text-gray-400 ml-1">Full Name</label>
-              <div className="relative">
-                <UserIcon className="h-5 w-5 absolute left-4 top-4 text-gray-300" />
-                <input required type="text" placeholder="Your Name" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} className="w-full p-4 pl-12 bg-gray-50 border-2 border-transparent rounded-2xl font-bold focus:border-black outline-none transition-all" />
-              </div>
-            </div>
+            <input type="text" placeholder="Full Name" className="w-full p-4 bg-gray-100 rounded-2xl" />
           )}
-
-          <div className="space-y-1">
-            <label className="text-[10px] font-black uppercase text-gray-400 ml-1">Email Address</label>
-            <div className="relative">
-              <EnvelopeIcon className="h-5 w-5 absolute left-4 top-4 text-gray-300" />
-              <input required type="email" placeholder="email@example.com" value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} className="w-full p-4 pl-12 bg-gray-50 border-2 border-transparent rounded-2xl font-bold focus:border-black outline-none transition-all" />
-            </div>
-          </div>
-
-          <div className="space-y-1">
-            <label className="text-[10px] font-black uppercase text-gray-400 ml-1">Password</label>
-            <div className="relative">
-              <LockClosedIcon className="h-5 w-5 absolute left-4 top-4 text-gray-300" />
-              <input required type="password" placeholder="••••••••" value={formData.password} onChange={(e) => setFormData({...formData, password: e.target.value})} className="w-full p-4 pl-12 bg-gray-50 border-2 border-transparent rounded-2xl font-bold focus:border-black outline-none transition-all" />
-            </div>
-          </div>
-
-          {!isLogin && (
-            <div className="space-y-1">
-              <label className="text-[10px] font-black uppercase text-gray-400 ml-1">Confirm Password</label>
-              <div className="relative">
-                <ShieldCheckIcon className="h-5 w-5 absolute left-4 top-4 text-gray-300" />
-                <input required type="password" placeholder="••••••••" value={formData.confirmPassword} onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})} className={`w-full p-4 pl-12 bg-gray-50 border-2 rounded-2xl font-bold outline-none transition-all ${!passwordsMatch && formData.confirmPassword !== '' ? 'border-red-500 bg-red-50' : 'focus:border-black'}`} />
-              </div>
-            </div>
-          )}
-
-          <button disabled={!passwordsMatch} type="submit" className={`w-full py-5 rounded-2xl font-black text-white bg-black hover:bg-orange-500 transition-all flex items-center justify-center gap-3 uppercase tracking-widest mt-6 ${!passwordsMatch ? 'opacity-50 cursor-not-allowed' : ''}`}>
-            {isLogin ? 'Sign In' : 'Register'} <ArrowRightIcon className="h-4 w-4" />
+          <input type="email" placeholder="Email" className="w-full p-4 bg-gray-100 rounded-2xl" />
+          <input type="password" placeholder="Password" className="w-full p-4 bg-gray-100 rounded-2xl" />
+          
+          <button className="w-full bg-black text-white py-4 rounded-2xl font-black uppercase tracking-widest">
+            {isLogin ? 'Sign In' : 'Create Account'}
           </button>
         </form>
-
-        <button onClick={() => setIsLogin(!isLogin)} className="w-full mt-8 text-[10px] font-black uppercase text-gray-400 hover:text-black transition-colors">
-          {isLogin ? "New user? Create account" : "Already have an account? Sign in"}
-        </button>
       </div>
     </div>
   );

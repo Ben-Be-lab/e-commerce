@@ -7,7 +7,7 @@ const ProductCard = ({ product }) => {
       <Link to={`/product/${product.id}`}>
         <div className="aspect-[3/4] overflow-hidden rounded-xl bg-gray-50">
           <img 
-            src={product.image} 
+            src={product.img} 
             className="w-full h-full object-cover transition-transform group-hover:scale-110" 
           />
         </div>
@@ -20,7 +20,7 @@ const ProductCard = ({ product }) => {
             {product.name}
           </h3>
         </Link>
-        <p className="text-emerald-600 font-black">${product.price}</p>
+        <p className="text-emerald-600 font-black">RF{product.price}</p>
       </div> 
     </div>
   );

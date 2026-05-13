@@ -1,17 +1,24 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import Layout from './Components/Layout'; // Customer Navbar/Footer
+import Layout from './Components/Layout'; 
 import AdminLayout from './Components/AdminLayout';
 import Home from './Pages/Home'
 import Store from './Pages/Store';
 import Cart from './Pages/Cart';
 import ProductDetails from './Pages/ProductDetails';
-import Auth from './Pages/Auth'; // Public Customer Auth (Login/Register)
+import Auth from './Pages/Auth'; 
+
+// New Pages
+import About from './Pages/About';
+import Contact from './Pages/Contact';
 
 // Admin Pages
-import AdminAuth from './Pages/Admin/AdminAuth'; // Secret Staff Auth
+import AdminAuth from './Pages/Admin/AdminAuth'; 
 import AdminDashboard from './Pages/Admin/AdminDashboard';
 import Inventory from './Pages/Admin/Inventory';
+import Login from './Pages/Auth/Login';
+import Register from './Pages/Auth/Register';
+import ForgotPassword from './Pages/Auth/ForgotPassword';
 
 function App() {
   return (
@@ -24,24 +31,26 @@ function App() {
           <Route index element={<Home />} />
           <Route path="home" element={<Home />} />
           <Route path="store" element={<Store />} />
+          <Route path="LOGIN" element={<Login />} />
+          <Route path="REGISTER" element={<Register />} />
+          <Route path="forgot-password" element={<ForgotPassword />} />
           <Route path="cart" element={<Cart />} />
           <Route path="product/:id" element={<ProductDetails />} />
           
-          {/* Public Login/Register (Email, Pass, Confirm Pass) */}
+          {/* New Routes Added Here */}
+          <Route path="about-us" element={<About />} />
+          <Route path="contact-us" element={<Contact />} />
+          
           <Route path="auth" element={<Auth />} />
         </Route>
 
-        {/* 2. SECRET ADMIN AUTH GATE
-            This is the link you only give to your staff. 
-            It doesn't use the store layout or the admin sidebar. */}
+        {/* 2. SECRET ADMIN AUTH GATE */}
         <Route path="/admin-login" element={<AdminAuth />} />
 
-        {/* 3. PROTECTED ADMIN DASHBOARD
-            Wrapped in the AdminLayout which provides the Sidebar */}
+        {/* 3. PROTECTED ADMIN DASHBOARD */}
         <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<AdminDashboard />} />
           <Route path="inventory" element={<Inventory />} />
-          {/* Add more admin routes here (Orders, Customers, etc.) */}
         </Route>
 
         {/* 4. ERROR HANDLING */}

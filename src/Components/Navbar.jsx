@@ -5,30 +5,36 @@ const Navbar = () => {
     <nav className="sticky top-0 z-50 bg-white border-b border-black/5 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          
-          {/* Logo - High Contrast Black and Emerald */}
+
+          {/* Logo */}
           <div className="flex items-center gap-2">
-            <Link to="/" className="text-black font-extrabold text-2xl tracking-tighter">
-              BEN'S<span className="text-emerald-600">STORE</span>
+            <Link to="/" className="text-black font-extrabold text-2xl tracking-tighter uppercase">
+              BEN'S<span className="text-emerald-600">VAULT</span>
             </Link>
           </div>
 
-          {/* Desktop Links - Black with Orange hover states */}
-          <div className="hidden md:flex items-center space-x-8 text-black font-semibold">
-            <Link to="/" className="hover:text-orange-500 transition-colors">Home</Link>
-            <Link to="/store" className="hover:text-orange-500 transition-colors">Store</Link>
+          {/* Desktop Links */}
+          <div className="hidden md:flex items-center space-x-8 text-black font-semibold uppercase text-[11px] tracking-widest">
+            <Link to="/" className="hover:text-emerald-500 transition-colors">Home</Link>
+            <Link to="/store" className="hover:text-emerald-500 transition-colors">Store</Link>
+            <Link to="/about-us" className="hover:text-emerald-500 transition-colors">About</Link>
+            <Link to="/contact-us" className="hover:text-emerald-500 transition-colors">Contact</Link>
           </div>
 
-          <div className="flex items-center gap-6">
-            {/* Cart - Black icon with Orange count badge */}
-           
-            
-            {/* Login Button - Cleaned up and properly placed */}
-            <Link 
-              to="/auth" 
-              className="font-black text-xs uppercase tracking-widest text-black border-2 border-black px-6 py-2 rounded-full hover:bg-black hover:text-white transition-all"
+          {/* AUTH ACTIONS */}
+          <div className="flex items-center gap-4">
+            <Link
+              to="/LOGIN"
+              className="font-black text-[10px] uppercase tracking-widest text-gray-500 hover:text-black transition-all"
             >
               Login
+            </Link>
+
+            <Link
+              to="/REGISTER"
+              className="font-black text-[10px] uppercase tracking-widest bg-black text-white px-6 py-2.5 rounded-full hover:bg-emerald-600 transition-all shadow-md"
+            >
+              Register
             </Link>
           </div>
 
