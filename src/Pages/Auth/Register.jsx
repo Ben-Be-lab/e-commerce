@@ -1,9 +1,51 @@
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Register = () => {
-    const handleSubmit = (e) => {
+    const navigate = useNavigate();
+
+    // 1. Setup State to hold form data
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        password: '',
+        confirmPassword: ''
+    });
+
+    // 2. Handle input changes
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    // 3. Handle Form Submission
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("Registration submitted");
+
+        // Basic validation: Check if passwords match
+        if (formData.password !== formData.confirmPassword) {
+            return alert("Passwords do not match!");
+        }
+
+        try {
+            // Sending data to your backend route
+            const response = await axios.post('http://localhost:5000/api/auth/register', {
+                name: formData.name,
+                email: formData.email,
+                password: formData.password
+            });
+
+            if (response.status === 201) {
+                alert("Account created! Welcome to the Vault.");
+                navigate('/login'); // Redirect to login page
+            }
+        } catch (error) {
+            console.error("Registration Error:", error.response?.data);
+            alert(error.response?.data?.message || "Registration failed. Try again.");
+        }
     };
 
     return (
@@ -21,22 +63,38 @@ const Register = () => {
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <input 
                         type="text" 
+                        name="name" // Added name attribute
                         placeholder="Full name" 
+                        value={formData.name}
+                        onChange={handleChange}
+                        required
                         className="w-full bg-gray-50 border-none rounded-2xl py-4 px-6 text-sm font-bold focus:ring-2 focus:ring-emerald-500 outline-none transition-all"
                     />
                     <input 
                         type="email" 
+                        name="email" // Added name attribute
                         placeholder="Email address" 
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
                         className="w-full bg-gray-50 border-none rounded-2xl py-4 px-6 text-sm font-bold focus:ring-2 focus:ring-emerald-500 outline-none transition-all"
                     />
                     <input 
                         type="password" 
+                        name="password" // Added name attribute
                         placeholder="Create password" 
+                        value={formData.password}
+                        onChange={handleChange}
+                        required
                         className="w-full bg-gray-50 border-none rounded-2xl py-4 px-6 text-sm font-bold focus:ring-2 focus:ring-emerald-500 outline-none transition-all"
                     />
                     <input 
                         type="password" 
+                        name="confirmPassword" // Added name attribute
                         placeholder="Confirm password" 
+                        value={formData.confirmPassword}
+                        onChange={handleChange}
+                        required
                         className="w-full bg-gray-50 border-none rounded-2xl py-4 px-6 text-sm font-bold focus:ring-2 focus:ring-emerald-500 outline-none transition-all"
                     />
 

@@ -1,34 +1,45 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import ProductCard from '../Components/ProductCard';
+import axios from 'axios';
 
 const Home = () => {
+  const [backendMessage, setBackendMessage] = useState("Connected to backend");
+
+  useEffect(() => {
+    axios.get('http://localhost:5000/api/test')
+      .then(response => {
+        setBackendMessage(response.data.message);
+      })
+      .catch(error => {
+        setBackendMessage("Connection failed ❌");
+        console.error("Backend Error:", error);
+      });
+  }, []);
 
   const footwearImages = [
     '/Images/tmberland.avif',
-    '/Images/PHANTOM+6+LOW+ELITE+FG+EH.avif',
-    '/Images/AIR+JORDAN+5+RETRO+OG.avif'
+    '/Images/Sports.avif',
+    '/Images/air.avif'
   ];
 
   const womenImages = [
     '/Images/womentimber.avif',
-    '/Images/WMNS+AIR+JORDAN+11+RETRO+LOW.avif',
-    '/Images/SLIDE.avif'
+    '/Images/womentimber.avif',
+    '/Images/slide.avif'
   ];
 
   const featured = [
-    { id: 1, name: "AIR JORDAN 5 RETRO OG", price: 35000, category: "Apparel", img: '/Images/AIR+JORDAN+5+RETRO+OG.avif' },
-    { id: 2, name: "FOOTBALL SHOES", price: 65000, category: "Footwear", img: '/Images/PHANTOM+6+LOW+ELITE+FG+EH.avif' },
-    { id: 3, name: "SLIDE", price: 28000, category: "Apparel", img: '/Images/SLIDE.avif' },
-    { id: 4, name: "AIR JORDAN 11", price: 18000, category: "Women Wear", img: '/Images/WMNS+AIR+JORDAN+11+RETRO+LOW.avif' },
+    { id: 1, name: "AIR JORDAN 5 RETRO OG", price: 35000, category: "Apparel", img: '/Images/air.avif' },
+    { id: 2, name: "FOOTBALL SHOES", price: 65000, category: "Footwear", img: '/Images/Sports.avif' },
+    { id: 3, name: "SLIDE", price: 28000, category: "Apparel", img: '/Images/slide.avif' },
+    { id: 4, name: "AIR JORDAN 11", price: 18000, category: "Women Wear", img: '/Images/womentimber.avif' },
   ];
-
 
   const footwearRef = useRef(null);
   const womenRef = useRef(null);
   const [footwearIndex, setFootwearIndex] = useState(0);
   const [womenIndex, setWomenIndex] = useState(0);
-
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -38,7 +49,6 @@ const Home = () => {
 
     return () => clearInterval(interval);
   }, [footwearImages.length, womenImages.length]);
-
 
   useEffect(() => {
     if (footwearRef.current) {
@@ -60,7 +70,9 @@ const Home = () => {
 
   return (
     <div className="bg-white">
-
+      <div className="bg-blue-400 text-white text-[10px] font-black uppercase tracking-[0.3em] py-2 text-center">
+        System Status: {backendMessage}
+      </div>
 
       <section className="py-32 px-4 bg-gray-50 rounded-[3rem] mt-12">
         <div className="max-w-7xl mx-auto">
@@ -79,20 +91,26 @@ const Home = () => {
         </div>
       </section>
 
-      
       <section className="max-w-7xl mx-auto px-4 py-24">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
 
           {/* FOOTWEAR SLIDER */}
           <div className="group">
-            <div className="relative overflow-hidden rounded-[2rem]">
+            {/* Added native aspect-video and helper background color to hold structural space */}
+            <div className="relative overflow-hidden rounded-[2rem] aspect-[16/9] bg-gray-100">
               <div
                 ref={footwearRef}
-                className="flex overflow-x-hidden snap-x snap-mandatory aspect-[16/9]"
+                className="flex overflow-x-hidden snap-x snap-mandatory h-full w-full"
               >
                 {footwearImages.map((src, i) => (
                   <div key={i} className="min-w-full h-full snap-center">
-                    <img src={src} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" alt="Footwear" />
+                    <img 
+                      src={src} 
+                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" 
+                      alt="Footwear"
+                      loading={i === 0 ? "eager" : "lazy"} // Eager load the first viewable image, lazy load the rest
+                      fetchpriority={i === 0 ? "high" : "low"} // Tell browser engine to fetch the initial frame first
+                    />
                   </div>
                 ))}
               </div>
@@ -101,16 +119,23 @@ const Home = () => {
             <Link to="/store" className="text-emerald-600 font-bold uppercase text-xs tracking-widest mt-2 block">Shop Collection →</Link>
           </div>
 
-          
+          {/* WOMEN'S SLIDER */}
           <div className="group">
-            <div className="relative overflow-hidden rounded-[2rem]">
+            {/* Added native aspect-video and helper background color to hold structural space */}
+            <div className="relative overflow-hidden rounded-[2rem] aspect-[16/9] bg-gray-100">
               <div
                 ref={womenRef}
-                className="flex overflow-x-hidden snap-x snap-mandatory aspect-[16/9]"
+                className="flex overflow-x-hidden snap-x snap-mandatory h-full w-full"
               >
                 {womenImages.map((src, i) => (
                   <div key={i} className="min-w-full h-full snap-center">
-                    <img src={src} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" alt="Women" />
+                    <img 
+                      src={src} 
+                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" 
+                      alt="Women" 
+                      loading={i === 0 ? "eager" : "lazy"} // Eager load the first viewable image, lazy load the rest
+                      fetchpriority={i === 0 ? "high" : "low"} // Tell browser engine to fetch the initial frame first
+                    />
                   </div>
                 ))}
               </div>
@@ -122,7 +147,6 @@ const Home = () => {
         </div>
       </section>
 
-      
       <div className="max-w-7xl mx-auto px-4 py-24 bg-gray-50 rounded-[3rem] mb-24">
         <div className="flex flex-col mb-16">
           <h2 className="text-4xl font-black text-black uppercase tracking-tighter">New Arrivals</h2>
@@ -132,13 +156,13 @@ const Home = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {featured.map(p => (
             <div key={p.id} className="bg-white p-4 rounded-[2rem] shadow-sm hover:shadow-xl transition-shadow">
+              {/* Product Card manages individual items, but lazy loading hints can be inherited */}
               <ProductCard product={p} />
             </div>
           ))}
         </div>
       </div>
 
-      
       <section className="bg-black py-20 text-center">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
@@ -157,7 +181,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-
     </div>
   );
 };
