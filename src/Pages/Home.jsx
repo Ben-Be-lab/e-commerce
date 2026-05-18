@@ -28,7 +28,6 @@ const Home = () => {
     '/Images/womentimber.avif',
     '/Images/slide.avif'
   ];
-
   const featured = [
     { id: 1, name: "AIR JORDAN 5 RETRO OG", price: 35000, category: "Apparel", img: '/Images/air.avif' },
     { id: 2, name: "FOOTBALL SHOES", price: 65000, category: "Footwear", img: '/Images/Sports.avif' },
