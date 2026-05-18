@@ -24,7 +24,7 @@ const footwearImages = [
   ];
 
   const womenImages = [
-    '/Images/womentimber.avif',  
+    '/Images/womentmber.avif',  
     '/Images/womentimber.avif',  
     '/Images/slide.avif'         
   ];
