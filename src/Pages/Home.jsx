@@ -24,16 +24,16 @@ const footwearImages = [
   ];
 
   const womenImages = [
-    '/Images/womentmber.avif',  
     '/Images/womentimber.avif',  
-    '/Images/slide.avif'         
+    '/Images/womentimber.avif',  
+    '/Images/womentimber.avif'         
   ];
 
   const featured = [
     { id: 1, name: "AIR JORDAN 5 RETRO OG", price: 35000, category: "Apparel", img: '/Images/air.avif' },
     { id: 2, name: "FOOTBALL SHOES", price: 65000, category: "Footwear", img: '/Images/Sports.avif' }, 
-    { id: 3, name: "SLIDE", price: 28000, category: "Apparel", img: '/Images/slide.avif' },
-    { id: 4, name: "AIR JORDAN 11", price: 18000, category: "Women Wear", img: '/Images/womentimber.avif' }, 
+    { id: 3, name: "Jordan 11", price: 28000, category: "Apparel", img: '/Images/jordan11.avif' },
+    { id: 4, name: "WOMEN'S TIMBERLAND", price: 18000, category: "Women Wear", img: '/Images/womentimber.avif' }, 
   ];
   const footwearRef = useRef(null);
   const womenRef = useRef(null);
